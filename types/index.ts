@@ -36,3 +36,7 @@ export interface Product {
   export interface CartProviderProps {
     children: React.ReactNode;
   }
+
+  export interface ProductDetailProps {
+    product: Product | undefined;
+  }
