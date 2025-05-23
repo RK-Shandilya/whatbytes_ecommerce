@@ -48,7 +48,9 @@ export default function Home() {
   return (
     <div className="flex bg-blue-50">
       <Sidebar />
-      <ProductGrid products={filteredProducts} />
+      <div className="mx-auto">
+        <ProductGrid products={filteredProducts} />
+      </div>
     </div>
   );
 }

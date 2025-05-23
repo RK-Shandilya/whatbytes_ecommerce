@@ -15,7 +15,7 @@ interface RadioOption {
     return (
       <div className={`space-y-2 ${className}`}>
         {options.map((option) => (
-          <label key={option.id} className="flex items-center cursor-pointer hover:bg-gray-50 hover:bg-opacity-10 rounded p-1 transition-colors">
+          <label key={option.id} className="flex items-center cursor-pointer rounded p-1 transition-colors">
             <input
               type="radio"
               name={name}

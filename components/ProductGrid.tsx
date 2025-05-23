@@ -30,8 +30,8 @@ const ProductGrid = ({ products }: { products: Product[] }) => {
 
   return (
     <div className="flex-1 p-6">
-      <h1 className='text-black pb-3 font-bold text-3xl'>Product Listing</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <h1 className='text-black p-3 font-bold text-3xl'>Product Listing</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

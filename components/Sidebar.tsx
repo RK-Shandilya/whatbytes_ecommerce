@@ -3,6 +3,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { categories, brands } from '../data/product';
 import { FilterSection, RadioGroup, PriceRangeSlider } from '@/components/ui';
+import { X, Filter } from 'lucide-react';
 
 const Sidebar = () => {
   const router = useRouter();
@@ -10,6 +11,7 @@ const Sidebar = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedBrand, setSelectedBrand] = useState<string>('all');
   const [priceRange, setPriceRange] = useState([0, 3000]);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   useEffect(() => {
     const category = searchParams.get('category') || 'all';
@@ -62,51 +64,85 @@ const Sidebar = () => {
     setSelectedBrand('all');
     setPriceRange([0, 3000]);
     router.push('/');
+    setIsMobileSidebarOpen(false);
   };
 
   return (
-    <div className="w-64 p-6 text-black">
-      <div className="space-y-6">
-        <FilterSection title="Filters" className="bg-background text-white flex flex-col gap-4">
-          <div>
-            <h4 className="text-sm font-medium mb-3 text-gray-300">Categories</h4>
-            <RadioGroup
-              options={categories}
-              selected={selectedCategory}
-              onChange={handleCategoryChange}
-              name="category"
-            />
-          </div>
-          
-          <div>
-            <h4 className="text-sm font-medium mb-3 text-gray-300">Price Range</h4>
-            <PriceRangeSlider
-              min={0}
-              max={3000}
-              value={priceRange}
-              onChange={handlePriceChange}
-            />
-          </div>
-        </FilterSection>
-
-        <FilterSection title="Brands" className='bg-foreground text-black'>
-          <RadioGroup
-            options={brands}
-            selected={selectedBrand}
-            onChange={handleBrandChange}
-            name="brand"
-          />
-        </FilterSection>
-
+    <>
+      <div className="sm:hidden fixed bottom-6 right-6 z-30">
         <button
-          onClick={handleClearFilters}
-          className="w-full py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-200 text-sm font-medium"
+          onClick={() => setIsMobileSidebarOpen(true)}
+          className="p-3 bg-background text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors"
         >
-          Clear All Filters
+          <Filter className="h-6 w-6" />
         </button>
       </div>
-    </div>
+  
+      {isMobileSidebarOpen && (
+        <div 
+          className="sm:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={() => setIsMobileSidebarOpen(false)}
+        />
+      )}
+  
+      <div className={`
+        ${isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'}
+        fixed sm:sticky top-0 left-0 h-screen sm:h-auto w-72 sm:w-64 p-6 
+        bg-blue-50 text-white
+        z-50 sm:z-auto transition-transform duration-300 ease-in-out overflow-y-auto
+      `}>
+        <div className="flex justify-between items-center mb-4 sm:hidden">
+          <h2 className="text-xl font-bold">Filters</h2>
+          <button 
+            onClick={() => setIsMobileSidebarOpen(false)}
+            className="p-1 text-gray-200 hover:text-white"
+          >
+            <X className="h-6 w-6" />
+          </button>
+        </div>
+  
+        <div className="space-y-6">
+          <FilterSection title="Filters" className="bg-blue-800 text-white flex flex-col gap-4">
+            <div>
+              <h4 className="text-sm font-medium mb-3 text-gray-200">Categories</h4> 
+              <RadioGroup
+                options={categories}
+                selected={selectedCategory}
+                onChange={handleCategoryChange}
+                name="category"
+              />
+            </div>
+            
+            <div>
+              <h4 className="text-sm font-medium mb-3 text-gray-200">Price Range</h4>
+              <PriceRangeSlider
+                min={0}
+                max={3000}
+                value={priceRange}
+                onChange={handlePriceChange}
+              />
+            </div>
+          </FilterSection>
+  
+          <FilterSection title="Brands" className='bg-white text-black'>
+            <RadioGroup
+              options={brands}
+              selected={selectedBrand}
+              onChange={handleBrandChange}
+              name="brand"
+            />
+          </FilterSection>
+  
+          <button
+            onClick={handleClearFilters}
+            className="w-full py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-200 text-sm font-medium"
+          >
+            Clear All Filters
+          </button>
+        </div>
+      </div>
+    </>
   );
-};
+}
 
 export default Sidebar;
