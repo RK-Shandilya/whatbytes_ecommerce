@@ -49,7 +49,7 @@ const Header = () => {
 
             <div className="flex items-center space-x-4">
               <Link href="/cart" className="relative p-2 text-gray-600 hover:text-blue-600">
-                <button className='flex items-center gap-2 bg-blue-950 rounded-xl px-4 py-2 text-white hover:bg-blue-900 cursor-pointer'>
+                <button className='flex items-center gap-2 bg-[#000435] rounded-xl px-4 py-2 text-white hover:bg-blue-900 cursor-pointer'>
                   <ShoppingCart className="h-4 w-4" /> 
                   <span>Cart</span>
                 </button>
