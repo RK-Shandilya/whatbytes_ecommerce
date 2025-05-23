@@ -15,8 +15,9 @@ interface ProductDetailProps {
 export default function ProductDetail({ params }: ProductDetailProps) {
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
-  const { id } = use(params);
-  const product = products.find(p => p.id === parseInt(id));
+  const resolvedPromise = Promise.resolve(params);
+  const pamameter = use(resolvedPromise);
+  const product = products.find(p => p.id === parseInt(pamameter.id));
 
   if (!product) {
     return (
