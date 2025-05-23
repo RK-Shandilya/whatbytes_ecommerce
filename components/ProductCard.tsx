@@ -27,42 +27,44 @@ const ProductCard = ({ product }: { product: Product }) => {
   return (
     <Link href={`/product/${product.id}`}>
       <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer h-full flex flex-col">
-      <div className="relative h-48">
+        <div className="relative h-40 sm:h-44 md:h-48 lg:h-52 p-3 sm:p-4">
             <Image
                 src={product.image}
                 alt={product.title}
                 fill
-                className="object-contain rounded-t-lg p-4"
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                className="object-contain rounded-t-lg p-2"
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 priority={false}
             />
-      </div>
-        <div className="p-4 flex flex-col flex-grow">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
-            {product.title}
-          </h3>
-          <div className="flex items-center justify-between mb-2">
-            <div className='flex items-center gap-1'>
-              <div className="flex items-center">
-                {renderStars(product.rating)}
-              </div>
-              <span className="text-sm text-gray-600">
-                ({product.rating})
-              </span>
+        </div>
+        <div className="p-3 sm:p-4 flex flex-col flex-grow">
+            <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 line-clamp-2 leading-tight">
+                {product.title}
+            </h3>
+        
+            <div className="flex items-center justify-between mb-2">
+                <div className='flex items-center gap-1'>
+                    <div className="flex items-center">
+                    {renderStars(product.rating)}
+                    </div>
+                    <span className="text-xs text-gray-600">
+                    ({product.rating})
+                    </span>
+                </div>
+                <span className="text-base sm:text-lg font-bold text-blue-600">
+                    ${product.price.toFixed(2)}
+                </span>
             </div>
-            <span className="text-lg font-bold text-blue-600">
-              ${product.price.toFixed(2)}
-            </span>
-          </div>
-          <div className="mt-auto">
-            <button
-              onClick={handleAddToCart}
-              className="w-full bg-background hover:bg-blue-800 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
-            >
-              <ShoppingCart className="h-4 w-4" />
-              <span>Add to Cart</span>
-            </button>
-          </div>
+        
+            <div className="mt-auto">
+                <button
+                    onClick={handleAddToCart}
+                    className="w-full bg-blue-600 hover:bg-blue-800 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 text-xs sm:text-sm"
+                >
+                    <ShoppingCart className="h-3 w-3 sm:h-4 sm:w-4" />
+                    <span>Add to Cart</span>
+                </button>
+            </div>
         </div>
       </div>
     </Link>

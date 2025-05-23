@@ -46,11 +46,9 @@ export default function Home() {
   }, [searchParams]);
 
   return (
-    <div className="flex bg-blue-50">
+    <div className="flex flex-col sm:flex-row bg-blue-50 h-screen">
       <Sidebar />
-      <div className="mx-auto">
-        <ProductGrid products={filteredProducts} />
-      </div>
+      <ProductGrid products={filteredProducts} />
     </div>
   );
 }

@@ -87,22 +87,21 @@ const Sidebar = () => {
   
       <div className={`
         ${isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'}
-        fixed sm:sticky top-0 left-0 h-screen sm:h-auto w-72 sm:w-64 p-6 
-        bg-blue-50 text-black
+        fixed sm:sticky top-0 left-0 h-screen sm:h-auto w-72 sm:w-68 p-6 
+        bg-blue-50 text-white
         z-50 sm:z-auto transition-transform duration-300 ease-in-out overflow-y-auto
       `}>
         <div className="flex justify-between items-center mb-4 sm:hidden">
-          <h2 className="text-xl font-bold">Filters</h2>
           <button 
             onClick={() => setIsMobileSidebarOpen(false)}
-            className="p-1 text-gray-200 hover:text-white"
+            className="p-1 text-black hover:text-gray-800"
           >
             <X className="h-6 w-6" />
           </button>
         </div>
   
         <div className="space-y-6">
-          <FilterSection title="Filters" className="bg-blue-800 text-white flex flex-col gap-4">
+          <FilterSection title="Filters" className="bg-background text-white flex flex-col gap-4">
             <div>
               <h4 className="text-sm font-medium mb-3 text-gray-200">Categories</h4> 
               <RadioGroup
