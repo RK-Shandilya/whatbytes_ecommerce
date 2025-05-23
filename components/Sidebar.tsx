@@ -88,7 +88,7 @@ const Sidebar = () => {
       <div className={`
         ${isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'}
         fixed sm:sticky top-0 left-0 h-screen sm:h-auto w-72 sm:w-64 p-6 
-        bg-blue-50 text-white
+        bg-blue-50 text-black
         z-50 sm:z-auto transition-transform duration-300 ease-in-out overflow-y-auto
       `}>
         <div className="flex justify-between items-center mb-4 sm:hidden">

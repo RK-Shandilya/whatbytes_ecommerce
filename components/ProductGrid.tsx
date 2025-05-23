@@ -1,16 +1,6 @@
 "use client"
 import ProductCard from './ProductCard';
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  category: string;
-  brand: string;
-  image: string;
-  description: string;
-  rating: number;
-}
+import { Product } from '@/types';
 
 const ProductGrid = ({ products }: { products: Product[] }) => {
   if (products.length === 0) {
