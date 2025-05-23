@@ -1,12 +1,21 @@
 "use client";
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { CartContextType, CartProviderProps, Product } from '@/types';
-import { cartReducer } from './cartReducer';
+import { cartReducer, localStorageCart } from './cartReducer';
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: CartProviderProps) => {
   const [state, dispatch] = useReducer(cartReducer, { items: [] });
+
+  useEffect(() => {
+    const cart = localStorageCart();
+    if (cart.items.length > 0) {
+      cart.items.forEach((item: Product & { quantity: number }) => {
+        dispatch({ type: 'ADD_TO_CART', payload: item });
+      });
+    }
+  }, []);
 
   const addToCart = (product: Product) => {
     dispatch({ type: 'ADD_TO_CART', payload: product });

@@ -46,7 +46,7 @@ export default function Home() {
   }, [searchParams]);
 
   return (
-    <div className="flex flex-col sm:flex-row bg-blue-50 h-screen">
+    <div className="flex flex-col sm:flex-row bg-blue-50 min-h-screen">
       <Sidebar />
       <ProductGrid products={filteredProducts} />
     </div>

@@ -1,11 +1,20 @@
 import { CartState, CartAction, CartItem } from "@/types"; 
 
+export const localStorageCart = (): CartState => {
+    if (typeof window !== 'undefined') {
+      const cart = localStorage.getItem('cart');
+      return cart ? JSON.parse(cart) : { items: [] };
+    }
+    return { items: [] };
+};
+
 export const cartReducer = ( state: CartState, action: CartAction) => {
+    let newState = { ...state };
     switch (action.type) {
         case 'ADD_TO_CART':
             const existingItem = state.items.find(item => item.id == action.payload.id);
             if (existingItem) {
-                return {
+                newState = {
                     ...state,
                     items: state.items.map((item: CartItem) => 
                         item.id === action.payload.id
@@ -15,18 +24,20 @@ export const cartReducer = ( state: CartState, action: CartAction) => {
                 }
             }
             else {
-                return {
+                newState = {
                     ...state,
                     items: [...state.items, {...action.payload, quantity: 1}]
                 }
             }
+            break;
         case 'REMOVE_FROM_CART':
-            return {
+            newState = {
                 ...state,
                 items: state.items.filter((item: CartItem) => item.id != action.payload)
             } 
+            break;
         case 'UPDATE_QUANTITY':
-            return {
+            newState = {
                 ...state,
                 items: state.items.map((item: CartItem) => 
                     item.id === action.payload.id
@@ -34,10 +45,15 @@ export const cartReducer = ( state: CartState, action: CartAction) => {
                         : item
                 ).filter((item: CartItem) => item.quantity > 0)
             }
+            break;
         case 'CLEAR_CART':
-            return { ...state, items: [] };
-              
+            newState = { ...state, items: [] };
+            break;
         default:
             return state;
     }
+    if (typeof window !== 'undefined') {
+        localStorage.setItem('cart', JSON.stringify(newState));
+    }
+    return newState;
 }
